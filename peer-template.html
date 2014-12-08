@@ -14,6 +14,8 @@
   <div class="panel ch-row ch-align-center">
     <div class="area center ch-xs-10 ch-sm-5" id="drop-div" ch-name="dropzone">
       Drag files here to send to recipient.
+      <br>
+      Size limit: 2MB
     </div>
 
     <div class="area ch-xs-10 ch-sm-5">
@@ -21,8 +23,8 @@
 
       <ul id="files-div" ch-name="filesDiv" ch-inline>
         <li class="li-item">
-          <a href="{{url}}" download="{{filename}}" target="_blank">
-            {{filename}} - {{size}}KB
+          <a href="#/download/{{id}}">
+            {{filename}} - {{size}}
           </a>
         </li>
       </ul>

@@ -1,7 +1,10 @@
-/* global $ch, Peer, FileReaderJS */
+/* global $ch, Peer, FileReaderJS, saveAs */
 
 // The API key for Peer.JS WebRTC library.
 var PEER_KEY = 'm2ir2tnmldqjjor';
+
+// File size limit.
+var MAX_SIZE = 1024 * 1024 * 2;
 
 // Global event names.
 var EVENT = {
@@ -114,6 +117,8 @@ $ch.require(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
         con.on('data', function (data) {
           // Push file `data` to global files storage.
           var files = $ch.source('files');
+          data.id = files.length;
+          data.blob = new Blob([data.blob], {type: data.type});
           files.push(data);
           $ch.source('files', files);
 
@@ -139,11 +144,20 @@ $ch.require(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
               return;
             }
 
+            // If file size is greater than max size limit,
+            // do nothing.
+            // if (file.size > MAX_SIZE) {
+            //   $scope.notification.content('"' + file.name + '" is greater than 2MB.');
+            //   console.log(dataURItoBlob(e.target.result));
+            //   return;
+            // }
+
             // Now, send file meta data to peer.
             conn.send({
               filename: file.name,
-              size: (file.size / 1024).toFixed(2), // convert file size into KB.
-              url: e.target.result
+              type: file.type,
+              size: file.extra.prettySize,
+              blob: dataURItoBlob(e.target.result)
             });
 
             // Push notification to scope `notifies`.
@@ -164,4 +178,45 @@ $ch.require(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
     });
   }
 
+  // Now, register router.
+  $ch.router.add({
+    'download/:id': function (q) {
+      // Get file number ID from global `files` source.
+      var file = $ch.source('files')[q.id];
+      var filename = file.filename;
+      var blob = file.blob;
+      // Now, download file.
+      saveAs(blob, filename);
+
+      // Finally, navigate to `#`.
+      $ch.router.navigate('#');
+    }
+  });
 });
+
+// Function to convert Data URI to Blob.
+function dataURItoBlob(dataURL) {
+  'use strict';
+
+  var BASE64_MARKER = ';base64,';
+  if (dataURL.indexOf(BASE64_MARKER) === -1) {
+    var parts = dataURL.split(',');
+    var contentType = parts[0].split(':')[1];
+    var raw = decodeURIComponent(parts[1]);
+
+    return new Blob([raw], {type: contentType});
+  }
+
+  var parts = dataURL.split(BASE64_MARKER);
+  var contentType = parts[0].split(':')[1];
+  var raw = window.atob(parts[1]);
+  var rawLength = raw.length;
+
+  var uInt8Array = new Uint8Array(rawLength);
+
+  for (var i = 0; i < rawLength; ++i) {
+    uInt8Array[i] = raw.charCodeAt(i);
+  }
+
+  return new Blob([uInt8Array], {type: contentType});
+}

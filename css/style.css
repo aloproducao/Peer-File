@@ -67,6 +67,10 @@ body {
       list-style: none;
       padding-left: 10px;
       border-bottom: 1px solid #b7b7b7; }
+    body [ch-scope=peerScope] #notification-div {
+      font-size: 12px;
+      color: red;
+      line-height: 20px; }
     body [ch-scope=peerScope] .notify {
       font-size: 12px;
       color: #62f34b;
