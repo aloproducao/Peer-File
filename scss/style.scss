@@ -1,0 +1,128 @@
+$fg: #e5e5e5;
+$darkFg: #b7b7b7;
+$bg: #28292f;
+$lightBlue: #3e87d1;
+$darkBlue: #3063af;
+$lightGreen: #62f34b;
+
+* {
+  font-weight: lighter;
+}
+
+body {
+  color: $fg;
+  background: $bg;
+
+  #container-div {
+    font-size: 20px;
+    margin-top: 20px;
+    line-height: 50px;
+  }
+
+  #login-btn {
+    background: $lightBlue;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: $darkBlue;
+    }
+  }
+
+  #login-div {
+    text-align: center;
+  }
+
+
+  input[type=text] {
+    color: $fg;
+    background: $bg;
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px solid $fg;
+    width: 200px;
+
+    &:focus {
+      box-shadow: none;
+      border: none;
+      outline: none;
+      border-bottom: 2px solid $lightBlue;
+    }
+  }
+
+
+  [ch-scope=peerScope] {
+    text-align: center;
+
+    .panel {
+      line-height: 30px;
+    }
+
+    .area {
+      text-align: left;
+      border-radius: 6px;
+      border: 1px solid $darkFg;
+      margin: 10px;
+      padding: 10px;
+      background: $fg;
+      color: $bg;
+      height: 300px;
+      text-shadow: 0px 0px 3px #fff;
+      overflow: auto;
+    }
+
+    .drop {
+      border: 2px solid $lightBlue;
+    }
+
+    .center {
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      align-content: center;
+      flex-direction: column;
+    }
+
+    #received-p {
+      margin-top: 0px;
+      margin-bottom: 10px;
+    }
+
+    a  {
+      color: $darkBlue;
+    }
+
+    #files-div {
+      padding: 0px;
+    }
+
+    #files-div li {
+      list-style: none;
+      padding-left: 10px;
+      border-bottom: 1px solid $darkFg;
+    }
+
+    .notify {
+      font-size: 12px;
+      color: $lightGreen;
+      line-height: 20px;
+    }
+
+    #indicator {
+      cursor: pointer;
+    }
+
+    .disconnected {
+      color: red;
+      font-size: 15px;
+    }
+
+    .connected {
+      color: $lightGreen;
+      font-size: 15px;
+    }
+  }
+}

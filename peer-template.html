@@ -1,0 +1,30 @@
+<div ch-scope="peerScope">
+  <p>
+    My ID is: <span id="id-div" ch-name="idDiv"></span>
+  </p>
+
+  <p>
+   I'm sending to <input type="text" id="recipient-input" ch-data="recipient" placeholder="recipient ID..." ch-event="change: connect"> <span id="indicator" ch-name="indicator" class="disconnected" ch-event="click: connect">disconnected</span>
+  </p>
+
+  <div id="notification-div" ch-name="notification" ch-inline>
+    <div class="notify">"{{filename}}" has been delivered.</div>
+  </div>
+
+  <div class="panel ch-row ch-align-center">
+    <div class="area center ch-xs-10 ch-sm-5" id="drop-div" ch-name="dropzone">
+      Drag files here to send to recipient.
+    </div>
+
+    <div class="area ch-xs-10 ch-sm-5">
+      <p id="received-p">Received:</p>
+
+      <ul id="files-div" ch-name="filesDiv" ch-inline>
+        <li>
+          <a href="{{url}}" target="_blank"><i class="fa fa-download"></i></a> {{filename}} - {{size}}KB
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>
