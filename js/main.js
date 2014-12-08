@@ -84,6 +84,13 @@ $ch.require(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
       var peer = new Peer(id, {key: 'm2ir2tnmldqjjor'});
       var conn;
 
+      // Make sure things clean up properly.
+      window.onunload = window.onbeforeunload = function(e) {
+        if (!!peer && !peer.destroyed) {
+          peer.destroy();
+        }
+      };
+
       // Listen scope `connect` event.
       $event.listen('connect', function () {
         // Make a peer connection to `recipient`.
