@@ -4,7 +4,7 @@
   </p>
 
   <p>
-   I'm sending to <input type="text" id="recipient-input" ch-data="recipient" placeholder="recipient ID..." ch-event="change: connect"> <span id="indicator" ch-name="indicator" class="disconnected" ch-event="click: connect">disconnected</span>
+   I'm sending to <input type="text" id="recipient-input" ch-data="recipient" placeholder="recipient ID..." ch-event="change: connect" ch-name="recipientInput"> <span id="indicator" ch-name="indicator" class="disconnected" ch-event="click: connect">disconnected</span>
   </p>
 
   <div id="notification-div" ch-name="notification" ch-inline>
@@ -20,8 +20,10 @@
       <p id="received-p">Received:</p>
 
       <ul id="files-div" ch-name="filesDiv" ch-inline>
-        <li>
-          <a href="{{url}}" target="_blank"><i class="fa fa-download"></i></a> {{filename}} - {{size}}KB
+        <li class="li-item">
+          <a href="{{url}}" download="{{filename}}" target="_blank">
+            {{filename}} - {{size}}KB
+          </a>
         </li>
       </ul>
     </div>

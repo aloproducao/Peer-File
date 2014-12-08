@@ -25,7 +25,7 @@ $ch.require(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
 
   // Generate a random ID postfix to ensure there would not be (ideally)
   // any users using same ID.
-  var postfix = $ch.utils.random(2, 20) * $ch.utils.random(2, 20);
+  var postfix = $ch.utils.random(10, 30) + '' + $ch.utils.random(10, 30);
 
   // Global ChopJS event: `ready peer`.
   //
@@ -46,6 +46,9 @@ $ch.require(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
   $ch.scope('appScope', function ($scope, $event) {
     // Initialize `username` to an empty string.
     $scope.username.set('');
+
+    // Focus on `username` input.
+    $scope.usernameInput.focus();
 
     // Listen `login` event.
     $event.listen('login', function () {
@@ -79,6 +82,9 @@ $ch.require(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
       // Show user ID.
       var id = username + postfix;
       $scope.idDiv.content(id);
+
+      // Focus on `recipient` input.
+      $scope.recipientInput.focus();
 
       // Startup Peer WebRTC.
       var peer = new Peer(id, {key: 'm2ir2tnmldqjjor'});

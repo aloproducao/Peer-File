@@ -59,6 +59,8 @@ body {
       margin-bottom: 10px; }
     body [ch-scope=peerScope] a {
       color: #3063af; }
+      body [ch-scope=peerScope] a:hover {
+        text-decoration: none; }
     body [ch-scope=peerScope] #files-div {
       padding: 0px; }
     body [ch-scope=peerScope] #files-div li {
@@ -77,3 +79,9 @@ body {
     body [ch-scope=peerScope] .connected {
       color: #62f34b;
       font-size: 15px; }
+    body [ch-scope=peerScope] .li-item {
+      transition: all 0.2s ease-in-out; }
+      body [ch-scope=peerScope] .li-item:hover {
+        background: #b7b7b7;
+        color: #3063af;
+        text-shadow: none; }
