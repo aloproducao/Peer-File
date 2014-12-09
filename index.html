@@ -6,14 +6,13 @@
 
   <link rel="icon" href="img/icon.png">
   <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body ch-scope="appScope">
 
   <div id="container-div">
     <div id="login-div">
-      I'm <input id="name-input" type="text" placeholder="your name..." ch-data="username" ch-event="keyup: keyLogin" ch-name="usernameInput" autofocus> <span id="login-btn" ch-event="click: login"><i class="fa fa-check"></i></span>
+      I'm <input id="name-input" type="text" placeholder="your name..." ch-data="username" ch-event="keyup: keyLogin" ch-name="usernameInput" autofocus> <span id="login-btn" ch-event="click: login">&checkmark;</span>
     </div>
 
     <div id="peer-container" ch-name="peerContainer"></div>
@@ -21,8 +20,10 @@
   </div>
 
   <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
-  <script src="js/filereader.js"></script>
+  <!-- The below libraries should be concated with main.js in final production -->
+<!--   <script src="js/filereader.js"></script>
   <script src="js/FileSaver.js"></script>
+ -->
   <script src="js/chop.min.js" ch-main="js/main.js"></script>
 </body>
 </html>

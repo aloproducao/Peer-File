@@ -3,16 +3,10 @@
 // The API key for Peer.JS WebRTC library.
 var PEER_KEY = 'm2ir2tnmldqjjor';
 
-// File size limit.
-var MAX_SIZE = 1024 * 1024 * 2;
-
 // Global event names.
 var EVENT = {
   READY_PEER: 'ready peer'
 };
-
-// Notification postfix.
-var NOTIFICATION = ' has been delivered.';
 
 // Peer template filename.
 var PEER_TEMPLATE = 'peer-template.html';
@@ -36,6 +30,7 @@ $ch.require(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
   //        container: peerScope_container,
   //        username: username
   //      }
+  //
   $ch.event.listen(EVENT.READY_PEER, function (data) {
     var container = data.container;
     var username = data.username;
@@ -90,7 +85,7 @@ $ch.require(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
       $scope.recipientInput.focus();
 
       // Startup Peer WebRTC.
-      var peer = new Peer(id, {key: 'm2ir2tnmldqjjor'});
+      var peer = new Peer(id, {key: PEER_KEY});
       var conn;
 
       // Make sure things clean up properly.
@@ -107,7 +102,9 @@ $ch.require(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
         if (recipient.trim() !== '') {
           conn = peer.connect(recipient);
           // Toggle indicator.
-          $scope.indicator.content('connected').removeClass('disconnected').addClass('connected');
+          $scope.indicator.content('connected')
+                          .removeClass('disconnected')
+                          .addClass('connected');
           console.log('Peer connected: ' + recipient);
         }
       });
@@ -115,7 +112,7 @@ $ch.require(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
       // Listen peer connection.
       peer.on('connection', function (con) {
         con.on('data', function (data) {
-          // Push file `data` to global files storage.
+          // Push file `data` to global files source.
           var files = $ch.source('files');
           data.id = files.length;
           data.blob = new Blob([data.blob], {type: data.type});
@@ -138,19 +135,11 @@ $ch.require(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
         on: {
           // Send file meta to peer.
           load: function (e, file) {
-            // If no recipient specified, do nothing.
+            // If no recipients specified, do nothing.
             var recipient = $scope.recipient.get() || '';
             if (recipient.trim() === '') {
               return;
             }
-
-            // If file size is greater than max size limit,
-            // do nothing.
-            // if (file.size > MAX_SIZE) {
-            //   $scope.notification.content('"' + file.name + '" is greater than 2MB.');
-            //   console.log(dataURItoBlob(e.target.result));
-            //   return;
-            // }
 
             // Now, send file meta data to peer.
             conn.send({
@@ -188,8 +177,8 @@ $ch.require(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
       // Now, download file.
       saveAs(blob, filename);
 
-      // Finally, navigate to `#`.
-      $ch.router.navigate('#');
+      // Finally, navigate to `/`.
+      $ch.router.navigate('/');
     }
   });
 });
