@@ -8,6 +8,9 @@ var EVENT = {
   READY_PEER: 'ready peer'
 };
 
+// Peer disconnection warning.
+var DISCONNECT_WARNING = 'disconnected with peer.';
+
 // Peer template filename.
 var PEER_TEMPLATE = 'peer-template.html';
 
@@ -22,7 +25,7 @@ $ch.use(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
 
   // Generate a random ID postfix to ensure there would not be (ideally)
   // any users using same ID.
-  var postfix = $ch.utils.random(10, 99) + '' + $ch.utils.random(10, 99);
+  var postfix = $ch.utils.random(10, 90) + '' + $ch.utils.random(10, 90);
 
   // Global ChopJS event: `ready peer`.
   //
@@ -81,6 +84,9 @@ $ch.use(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
       var id = username + postfix;
       $scope.idDiv.content(id);
 
+      // Scope variable to indicate connection status.
+      $scope.connected = false;
+
       // Focus on `recipient` input.
       $scope.recipientInput.focus();
 
@@ -102,10 +108,13 @@ $ch.use(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
         if (recipient.trim() !== '') {
           conn = peer.connect(recipient);
           // Toggle indicator.
+          $scope.connected = true;
           $scope.indicator.content('connected')
                           .removeClass('disconnected')
                           .addClass('connected');
           console.log('Peer connected: ' + recipient);
+          // Clear notification.
+          $scope.notification.content('');
         }
       });
 
@@ -135,9 +144,11 @@ $ch.use(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
         on: {
           // Send file meta to peer.
           load: function (e, file) {
-            // If no recipients specified, do nothing.
+            // If not connected and no recipients specified,
+            //  show disconnection message.
             var recipient = $scope.recipient.get() || '';
-            if (recipient.trim() === '') {
+            if (!$scope.connected && recipient.trim() === '') {
+              $scope.notification.content(DISCONNECT_WARNING);
               return;
             }
 
