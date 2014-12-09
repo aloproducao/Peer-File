@@ -17,7 +17,7 @@ $ch.source('files', []);
 // Global notification source.
 $ch.source('notify', []);
 
-$ch.require(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
+$ch.use(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
   'use strict';
 
   // Generate a random ID postfix to ensure there would not be (ideally)
