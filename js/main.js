@@ -22,7 +22,7 @@ $ch.use(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
 
   // Generate a random ID postfix to ensure there would not be (ideally)
   // any users using same ID.
-  var postfix = $ch.utils.random(10, 30) + '' + $ch.utils.random(10, 30);
+  var postfix = $ch.utils.random(10, 99) + '' + $ch.utils.random(10, 99);
 
   // Global ChopJS event: `ready peer`.
   //
