@@ -20,7 +20,7 @@ $ch.source('files', []);
 // Global notification source.
 $ch.source('notify', []);
 
-$ch.use(['ui', 'layout', 'utils', 'event', 'scope', 'router'], function () {
+$ch.use('./chop-bundle', function () {
   'use strict';
 
   // Generate a random ID postfix to ensure there would not be (ideally)

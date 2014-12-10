@@ -48,6 +48,7 @@ module.exports = function (grunt) {
       dist: {
         files: {
           'dist/js/chop.min.js': ['js/chop.min.js'],
+          'dist/js/chop-bundle.js': ['js/chop-bundle.js'],
           'dist/js/main.js': ['js/filereader.js', 'js/FileSaver.js', 'js/main.js']
         }
       }
